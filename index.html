@@ -51,7 +51,7 @@ https://www.tooplate.com/view/2127-little-fashion
                         <strong><span>Little</span> Fashion</strong>
                     </a>
 					
-					<h1>Hola Mundo desde $(hostname -f)</h1>
+					<h1 id="hostname">Hola Mundo desde...</h1>
 
                     <div class="d-lg-none">
                         <a href="sign-in.html" class="bi-person custom-icon me-3"></a>
@@ -455,4 +455,9 @@ https://www.tooplate.com/view/2127-little-fashion
         <script src="js/custom.js"></script>
 
     </body>
+	
+	<script>
+    document.getElementById("hostname").innerHTML = "Hola Mundo desde " + window.location.hostname;
+</script>
+	
 </html>
