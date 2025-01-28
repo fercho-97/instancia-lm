@@ -46,12 +46,14 @@ https://www.tooplate.com/view/2127-little-fashion
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+					
+ <h1>EC2 Instance Private IP</h1>
+  <p>Your private IP is: <strong id="private-ip">Loading...</strong></p>
 
                     <a class="navbar-brand" href="index.html">
                         <strong><span>Little</span> Fashion</strong>
                     </a>
 					
-					<h1 id="hostname">Hola Mundo desde...</h1>
 
                     <div class="d-lg-none">
                         <a href="sign-in.html" class="bi-person custom-icon me-3"></a>
@@ -457,7 +459,24 @@ https://www.tooplate.com/view/2127-little-fashion
     </body>
 	
 	<script>
-    document.getElementById("hostname").innerHTML = "Hola Mundo desde " + window.location.hostname;
-</script>
+   
+   
+   async function getPrivateIP() {
+      try {
+        // URL especial para metadatos de instancia EC2
+        const response = await fetch('http://169.254.169.254/latest/meta-data/local-ipv4');
+        if (!response.ok) throw new Error('Error fetching metadata');
+        const privateIP = await response.text();
+        document.getElementById('private-ip').textContent = privateIP;
+      } catch (error) {
+        console.error('Failed to fetch the private IP:', error);
+        document.getElementById('private-ip').textContent = 'Error retrieving IP.';
+      }
+    }
+
+    // Llama a la función cuando la página se carga
+    window.onload = getPrivateIP;
+	
+   </script>
 	
 </html>
